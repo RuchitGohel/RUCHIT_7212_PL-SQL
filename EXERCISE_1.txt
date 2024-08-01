@@ -1,0 +1,195 @@
+SQL> set pagesize 200
+SQL> set linesize 200
+SQL> create table Cust_Master
+  2  (Cust_No varchar2(5),
+  3  Cust_name varchar(15),
+  4  Address1 varchar(20),
+  5  Address2 varchar(20),
+  6  City varchar(15),
+  7  State varchar(15),
+  8  Ph_no number(12));
+
+Table created.
+
+SQL> insert into Cust_Master values
+  2  (C1,
+  3  'Priya',
+  4  'Ring Road',
+  5  'Puja Park',
+  6  'Ahmedabad',
+  7  'Gujarat',
+  8  8989878548);
+(C1,
+ *
+ERROR at line 2:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into Cust_Master values
+  2  ('C1',
+  3  'Priya',
+  4  'Ring Road',
+  5  'Puja Park',
+  6  'Ahmedabad',
+  7  'Gujarat',
+  8  8989878548);
+
+1 row created.
+
+SQL> insert into Cust_Master values
+  2  ('C2',
+  3  'Puja',
+  4  'Lajpat Nagar',
+  5  'Shyamal Colony',
+  6  'Banaras',
+  7  'UP',
+  8  7898456213);
+
+1 row created.
+
+SQL> insert into Cust_Master values
+  2  ('C3',
+  3  'Ankit',
+  4  'Boriwali',
+  5  'Panchayat Nager',
+  6  'Mumbai',
+  7  'Maharashtra',
+  8  7885984251);
+
+1 row created.
+
+SQL> insert into Cust_Master values
+  2  ('C4',
+  3  ('Ravi',
+  4  ('Vajdi Road',
+  5  ('Nandbhoomi Colony',
+  6  
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> insert into Cust_Master values
+  2  ('C4',
+  3  'Ravi',
+  4  'Vajdi Road',
+  5  'Nandbhoomi Colony',
+  6  'Delhi',
+  7  'Delhi',
+  8  78998452034);
+
+1 row created.
+
+SQL> insert into Cust_Master values
+  2  ('C5',
+  3  'Alpa',
+  4  'Jamnagar Road',
+  5  'Railway Colony',
+  6  'Ahmedabad',
+  7  'Gujarat',
+  8  7465241589);
+
+1 row created.
+
+SQL> select * from Cust_Master;
+
+CUST_ CUST_NAME       ADDRESS1             ADDRESS2             CITY            STATE                PH_NO                                                                                              
+----- --------------- -------------------- -------------------- --------------- --------------- ----------                                                                                              
+C1    Priya           Ring Road            Puja Park            Ahmedabad       Gujarat         8989878548                                                                                              
+C2    Puja            Lajpat Nagar         Shyamal Colony       Banaras         UP              7898456213                                                                                              
+C3    Ankit           Boriwali             Panchayat Nager      Mumbai          Maharashtra     7885984251                                                                                              
+C4    Ravi            Vajdi Road           Nandbhoomi Colony    Delhi           Delhi           7.8998E+10                                                                                              
+C5    Alpa            Jamnagar Road        Railway Colony       Ahmedabad       Gujarat         7465241589                                                                                              
+
+SQL> select * from Cust_Master where state='Gujarat';
+
+CUST_ CUST_NAME       ADDRESS1             ADDRESS2             CITY            STATE                PH_NO                                                                                              
+----- --------------- -------------------- -------------------- --------------- --------------- ----------                                                                                              
+C1    Priya           Ring Road            Puja Park            Ahmedabad       Gujarat         8989878548                                                                                              
+C5    Alpa            Jamnagar Road        Railway Colony       Ahmedabad       Gujarat         7465241589                                                                                              
+
+SQL> select * from Cust_Master order by Cust_Name;
+
+CUST_ CUST_NAME       ADDRESS1             ADDRESS2             CITY            STATE                PH_NO                                                                                              
+----- --------------- -------------------- -------------------- --------------- --------------- ----------                                                                                              
+C5    Alpa            Jamnagar Road        Railway Colony       Ahmedabad       Gujarat         7465241589                                                                                              
+C3    Ankit           Boriwali             Panchayat Nager      Mumbai          Maharashtra     7885984251                                                                                              
+C1    Priya           Ring Road            Puja Park            Ahmedabad       Gujarat         8989878548                                                                                              
+C2    Puja            Lajpat Nagar         Shyamal Colony       Banaras         UP              7898456213                                                                                              
+C4    Ravi            Vajdi Road           Nandbhoomi Colony    Delhi           Delhi           7.8998E+10                                                                                              
+
+SQL> select distinct(city) from Cust_Master;
+
+CITY                                                                                                                                                                                                    
+---------------                                                                                                                                                                                         
+Banaras                                                                                                                                                                                                 
+Ahmedabad                                                                                                                                                                                               
+Delhi                                                                                                                                                                                                   
+Mumbai                                                                                                                                                                                                  
+
+SQL> update Cust_Master set Address1='CG Road' where Cust_Name='Priya';
+
+1 row updated.
+
+SQL> select City from Cust_Master where State='Guajrat';
+
+no rows selected
+
+SQL> select City from Cust_Master where State='Guajarat';
+
+no rows selected
+
+SQL> select * from Cust_Master where State='Guajarat';
+
+no rows selected
+
+SQL> select City from Cust_Master where State='Gujarat';
+
+CITY                                                                                                                                                                                                    
+---------------                                                                                                                                                                                         
+Ahmedabad                                                                                                                                                                                               
+Ahmedabad                                                                                                                                                                                               
+
+SQL> alter table Cust_Master add(Pincode number(10));
+
+Table altered.
+
+SQL> alter table Cust_Master drop Pincode;
+alter table Cust_Master drop Pincode
+                             *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> alter table Cust_Master drop column Pincode;
+
+Table altered.
+
+SQL> desc Cust_Master;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ CUST_NO                                                                                                                    VARCHAR2(5)
+ CUST_NAME                                                                                                                  VARCHAR2(15)
+ ADDRESS1                                                                                                                   VARCHAR2(20)
+ ADDRESS2                                                                                                                   VARCHAR2(20)
+ CITY                                                                                                                       VARCHAR2(15)
+ STATE                                                                                                                      VARCHAR2(15)
+ PH_NO                                                                                                                      NUMBER(12)
+
+SQL> delete from Cust_Master where Ph_No=7898452034
+  2  ;
+
+0 rows deleted.
+
+SQL> delete from Cust_Master where Ph_No=7898452034;
+
+0 rows deleted.
+
+SQL> Rename Cust_Master to Customer_Detail;
+
+Table renamed.
+
+SQL> spool off

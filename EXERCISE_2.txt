@@ -1,0 +1,164 @@
+SQL> set pagesize 200
+SQL> set linesize 200
+SQL> create table Item_Master
+  2  (Id varchar2(2),
+  3  Name varchar(15),
+  4  Type varchar(15),
+  5  Price number(6),
+  6  Quality varchar(10),
+  7  Itam_Pack_Date date);
+
+Table created.
+
+SQL> insert into Item_Master values
+  2  ('I1',
+  3  'Dairymilk',
+  4  'Chocolate',
+  5  500,
+  6  'Good',
+  7  '12-Aug-2000');
+
+1 row created.
+
+SQL> insert into Item_Master values
+  2  ('I2',
+  3  'Kajukatri',
+  4  'Mithai',
+  5  1000,
+  6  'Verygood',
+  7  '15-Jan-2016');
+
+1 row created.
+
+SQL> insert into Item_Master values
+  2  ('I3',
+  3  'Pizza',
+  4  'Fastfood',
+  5  350,
+  6  'Average',
+  7  '20-Feb-2015');
+
+1 row created.
+
+SQL> insert into Item_Master values
+  2  ('I4',
+  3  'Orange Juice',
+  4  'Juice',
+  5  50,
+  6  'Best',
+  7  '05-Feb-2016');
+
+1 row created.
+
+SQL> insert into Item_Master values
+  2  ('I5',
+  3  'Vanilla Cake',
+  4  'Bakery Item',
+  5  2000,
+  6  'Good',
+  7  '01-Jan-2016');
+
+1 row created.
+
+SQL> select Price,Quality, Item_Pack_Date from Item_Master;
+select Price,Quality, Item_Pack_Date from Item_Master
+                      *
+ERROR at line 1:
+ORA-00904: "ITEM_PACK_DATE": invalid identifier 
+
+
+SQL> select Price,Quality, Itam_Pack_Date from Item_Master;
+
+     PRICE QUALITY    ITAM_PACK                                                                                                                                                                         
+---------- ---------- ---------                                                                                                                                                                         
+       500 Good       12-AUG-00                                                                                                                                                                         
+      1000 Verygood   15-JAN-16                                                                                                                                                                         
+       350 Average    20-FEB-15                                                                                                                                                                         
+        50 Best       05-FEB-16                                                                                                                                                                         
+      2000 Good       01-JAN-16                                                                                                                                                                         
+
+SQL> alter table Item_Master modify(Item_Pack_Date date);
+alter table Item_Master modify(Item_Pack_Date date)
+                               *
+ERROR at line 1:
+ORA-00904: "ITEM_PACK_DATE": invalid identifier 
+
+
+SQL> alter table Item_Master rename column Itam_Pack_Date to Item_Pack_Date;
+
+Table altered.
+
+SQL> select * from Item_Master;
+
+ID NAME            TYPE                 PRICE QUALITY    ITEM_PACK                                                                                                                                      
+-- --------------- --------------- ---------- ---------- ---------                                                                                                                                      
+I1 Dairymilk       Chocolate              500 Good       12-AUG-00                                                                                                                                      
+I2 Kajukatri       Mithai                1000 Verygood   15-JAN-16                                                                                                                                      
+I3 Pizza           Fastfood               350 Average    20-FEB-15                                                                                                                                      
+I4 Orange Juice    Juice                   50 Best       05-FEB-16                                                                                                                                      
+I5 Vanilla Cake    Bakery Item           2000 Good       01-JAN-16                                                                                                                                      
+
+SQL> select * from Item_Master order by Quality;
+
+ID NAME            TYPE                 PRICE QUALITY    ITEM_PACK                                                                                                                                      
+-- --------------- --------------- ---------- ---------- ---------                                                                                                                                      
+I3 Pizza           Fastfood               350 Average    20-FEB-15                                                                                                                                      
+I4 Orange Juice    Juice                   50 Best       05-FEB-16                                                                                                                                      
+I5 Vanilla Cake    Bakery Item           2000 Good       01-JAN-16                                                                                                                                      
+I1 Dairymilk       Chocolate              500 Good       12-AUG-00                                                                                                                                      
+I2 Kajukatri       Mithai                1000 Verygood   15-JAN-16                                                                                                                                      
+
+SQL> select distinct(Quality) from Item_Master;
+
+QUALITY                                                                                                                                                                                                 
+----------                                                                                                                                                                                              
+Average                                                                                                                                                                                                 
+Best                                                                                                                                                                                                    
+Good                                                                                                                                                                                                    
+Verygood                                                                                                                                                                                                
+
+SQL> update Cust_Master set Quality='Verygood' where Quality='Good';
+update Cust_Master set Quality='Verygood' where Quality='Good'
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> update Itam_Master set Quality='Verygood' where Quality='Good';
+update Itam_Master set Quality='Verygood' where Quality='Good'
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> update Item_Master set Quality='Verygood' where Quality='Good';
+
+2 rows updated.
+
+SQL> alter table Item_Master add(Item_Pur_Date date);
+
+Table altered.
+
+SQL> select * from Item_Master where Price>500;
+
+ID NAME            TYPE                 PRICE QUALITY    ITEM_PACK ITEM_PUR_                                                                                                                            
+-- --------------- --------------- ---------- ---------- --------- ---------                                                                                                                            
+I2 Kajukatri       Mithai                1000 Verygood   15-JAN-16                                                                                                                                      
+I5 Vanilla Cake    Bakery Item           2000 Verygood   01-JAN-16                                                                                                                                      
+
+SQL> delete from Item_Master wherer Price=50;
+delete from Item_Master wherer Price=50
+                               *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> delete from Item_Master where Price=50;
+
+1 row deleted.
+
+SQL> rename Item_Master to Item_Detail;
+
+Table renamed.
+
+SQL> spool off
